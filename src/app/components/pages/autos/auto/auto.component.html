@@ -1,0 +1,71 @@
+<div><div class="d-flex justify-content-center"><div class="m-2 mt-3 col-5">
+    <h1>Auto <small>{{title}}</small></h1>
+    <hr>
+    <div class="row text-right animated fadeIn faster">
+        <div class="col">
+            <button class="btn btn-outline-danger" routerLink="/autos">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                Regresar
+            </button>
+        </div>
+    </div>
+    
+    <div class="row animated fadeIn faster">
+        <div class="col">
+            <form (ngSubmit)="guardar(f)" #f="ngForm">
+                <div class="form-group">
+                    <label>Auto ID</label>
+                    <input type="text" [(ngModel)]="auto.id" name="id" placeholder="Auto ID" class="form-control" disabled>
+                    <small class="form-text text-muted">Este campo es autogenerado</small>
+                </div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input required minlength="3" type="text" class="form-control" [(ngModel)]="auto.nombre" name="nombre" placeholder="Nombre del auto">
+                </div>
+                <div class="form-group">
+                    <label>Descripcion</label>
+                    <input type="text" class="form-control" [(ngModel)]="auto.descripcion" name="descripcion" placeholder="Agregar descripcion">
+                </div>
+                <div class="form-group">
+                    <label>Precio</label>
+                    <input required type="number" class="form-control" [(ngModel)]="auto.precio" name="precio" placeholder="Precio del Auto">
+                </div>
+                <div class="form-group">
+                    <label>Placa</label>
+                    <input required type="text" class="form-control" [(ngModel)]="auto.placa" minlength="6" maxlength="6"  name="placa" placeholder="Placa del Vehiculo">
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Ingreso</label>
+                    <input required type="date" class="form-control" id="fecha" [(ngModel)]="auto.fecha_ingreso" name="fecha_ingreso">
+                </div>
+                <div class="form-group">
+                    <label>Marca</label>
+                    <input required minlength="3" type="text" class="form-control" [(ngModel)]="auto.marca" name="marca" placeholder="Marca del auto">
+                </div>
+                <div class="form-group">
+                    <label>Empleado que registra</label>
+                    <select name="empleado" class="form-control" id="empleado" #select [(ngModel)]="auto.id_empleado">
+                        <option *ngFor="let empleado of empleados" [value]="empleado.id">{{empleado.nombre}} {{empleado.apellido}}</option>
+                        <!-- <option *ngFor="let empleado of empleados" [value]="empleado.id" >{{empleado.first_name}} {{empleado.last_name}}</option> -->
+                            
+                    </select>
+                </div>
+                <hr>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-info w-25">
+                        <i class="fa fa-save"></i>
+                        Guardar
+                    </button>
+                </div>
+                
+            </form>
+    </div>
+    
+    
+</div>
+</div>
+</div>
+<div class="row">
+    {{auto | json}}
+</div>
+

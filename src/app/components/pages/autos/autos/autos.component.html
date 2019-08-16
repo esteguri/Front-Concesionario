@@ -1,0 +1,79 @@
+<div class="m-2 mt-3">
+<h1>Gestion de Autos</h1>
+<hr>
+<div class="row p-2">
+    <div class="col-2 text-right">
+        <h5><i class="fa fa-search"></i> Consultar ID</h5>
+    </div>
+    <div class="col-3 d-flex">
+        <input type="number" class="form-control" min="1" required #id>
+        <button class="btn btn-info btn-rounded ml-2" (click)="consultarId(id)"> <i class="fa fa-send"></i></button>
+    </div>
+    <div class="col text-right">
+        <button class="btn btn-info mr-2" (click)="consultarAutos()">
+            <i class="fa fa-filter"></i>
+            Listar
+        </button>
+        <button class="btn btn-info" routerLink="/auto/nuevo"  >
+            <i class="fa fa-plus"></i>
+            Agregar
+        </button>
+    </div>
+</div>
+<table class="table m-1 animated fadeIn fast">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Placa</th>
+            <th scope="col">Fecha Ingreso</th>
+            <th scope="col">Marca</th>
+            <th scope="col">ID Empleado</th>
+            <th scope="col">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let auto of autos">
+            <th scope="row">{{auto.id}}</th>
+            <td>{{auto.nombre}}</td>
+            <td>{{auto.descripcion}}</td>
+            <td>{{auto.precio | currency}}</td>
+            <td>{{auto.placa}}</td>
+            <td>{{auto.fecha_ingreso}}</td>
+            <td>{{auto.marca}}</td>
+            <td>{{auto.id_empleado}}</td>
+            <td>
+            <button class="btn btn-warning mr-1" routerLink="/auto/{{auto.id}}"><i class="fa fa-pen"></i></button>
+            <button class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+            </td>
+        </tr>
+        <!-- <tr *ngFor="let auto of autos">
+            <th scope="row">{{auto.id}}</th>
+            <td>{{auto.email}}</td>
+            <td>{{auto.first_name}}</td>
+            <td>{{auto.last_name}}</td>
+            <td>{{auto.last_name}}</td>
+            <td>{{auto.id | currency}}</td>
+            <td>{{auto.last_name}}</td>
+            <td>{{auto.last_name}}</td>
+            <td>
+                <button class="btn btn-warning mr-1" ><i class="fa fa-pen"></i></button>
+                <button class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+            </td>
+        </tr> -->
+    </tbody>
+</table>
+ 
+<div *ngIf="cargando" class="alert alert-info mt-3 text-center animated fadeIn faster">
+    <h4 class="alert-heading">Cargando</h4>
+    <p>
+        <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">
+        Espere por favor
+    </p>
+</div>
+
+</div>

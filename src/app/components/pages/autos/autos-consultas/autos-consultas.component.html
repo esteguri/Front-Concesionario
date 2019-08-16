@@ -1,0 +1,75 @@
+<h4 class="display-4 m-4">Consultas de Autos</h4>
+<div class="row m-2">
+    <div class="col-md-4 col-sm-12 border-right">
+        <div class="form-group ">
+            <label for="marca">Consultar por Marca</label>
+            <div class="d-flex">
+                <input type="text" required minlength="2" class="form-control" id="marca" placeholder="Ingrese la marca del auto" #marca>
+                <button class="btn btn-rounded btn-info ml-2 mr-2" (click)="consultarMarca(marca)" ><i class="fa fa-send"></i></button>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="marca">Consultar por Fecha de Ingreso</label>
+            <div class="d-flex">
+            <input type="date" required minlength="2" class="form-control" id="fecha" placeholder="Fecha" #fecha>
+            <button class="btn btn-rounded btn-info ml-2 mr-2" (click)="consultarFecha(fecha)" ><i class="fa fa-send"></i></button>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="marca">Consultar por Empleado</label>
+            <div class="d-flex">
+            <select name="empleado" class="form-control" id="empleado" #select>
+                <option *ngFor="let empleado of empleados" [value]="empleado.id">{{empleado.nombre}} {{empleado.apellido}}</option>
+                <!-- <option *ngFor="let empleado of empleados" [value]="empleado.id" >{{empleado.first_name}} {{empleado.last_name}}</option> -->
+            
+            </select>
+            <button class="btn btn-rounded btn-info ml-2 mr-2" (click)="consultarEmpleado(select)" ><i class="fa fa-send"></i></button>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="marca">Consultar por Precio</label>
+            <div class="d-flex">
+            <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio" #precio>
+            <button class="btn btn-rounded btn-info ml-2 mr-2" (click)="consultarPrecio(precio)" ><i class="fa fa-send"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-12 table-responsive-md table-responsive-sm table-responsive-lg table-responsive-xl">
+        <table class="table table-hover">
+            <thead class="thead-light ">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Placa</th>
+                    <th scope="col">Fecha Ingreso</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">ID Empleado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let auto of autos">
+                    <th scope="row">{{auto.id}}</th>
+                    <td>{{auto.nombre}}</td>
+                    <td>{{auto.descripcion}}</td>
+                    <td>{{auto.precio | currency}}</td>
+                    <td>{{auto.placa}}</td>
+                    <td>{{auto.fecha_ingreso}}</td>
+                    <td>{{auto.marca}}</td>
+                    <td>{{auto.id_empleado}}</td>
+                 </tr>
+                <!-- <tr *ngFor="let auto of autos">
+                    <th scope="row">{{auto.id}}</th>
+                    <td>{{auto.email}}</td>
+                    <td>{{auto.first_name}}</td>
+                    <td>{{auto.last_name}}</td>
+                    <td>{{auto.last_name}}</td>
+                    <td>{{auto.id | currency}}</td>
+                    <td>{{auto.last_name}}</td>
+                    <td>{{auto.last_name}}</td>
+                </tr>  -->
+            </tbody>
+        </table>
+    </div>
+</div>
