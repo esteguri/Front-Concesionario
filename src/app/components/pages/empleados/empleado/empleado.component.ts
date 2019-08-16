@@ -1,54 +1,56 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiConcesionarioService } from '../../../../services/api-concesionario.service';
-import { AutoModel } from '../../../../models/auto.model';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2'
 import { ActivatedRoute, Router } from '@angular/router';
+import { EmpleadoModel } from '../../../../models/empleado.model';
 
 @Component({
-  selector: 'app-auto',
-  templateUrl: './auto.component.html',
+  selector: 'app-empleado',
+  templateUrl: './empleado.component.html',
   styles: []
 })
-export class AutoComponent implements OnInit {
 
-  auto = new AutoModel();
+export class EmpleadoComponent implements OnInit {
+
+  empleado = new EmpleadoModel();
   title:string;
-  empleados:any[] = []
+  sucursales:any[] = []
   constructor(private apiConcesionario:ApiConcesionarioService, private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit() {
-    this.consultarEmpleados();
+
+    this.consultarSucursales();
     const id = this.route.snapshot.paramMap.get('id');
     if(id=="nuevo"){
       this.title = "Nuevo"
     }else{
 
-      this.apiConcesionario.consultarAutoXId(id).subscribe( (resp:any) => {
+      this.apiConcesionario.consultarEmpleadoXId(id).subscribe( (resp:any) => {
         if(resp.error){
-          this.router.navigate(['/autos'])
+          this.router.navigate(['/empleados'])
         }else{
-          this.auto = resp;
-          this.title = resp.nombre;
+          this.empleado = resp;
+          this.title = resp.nombre + " " + resp.apellido;
         }
       })
-
     }
+
   }
 
-  consultarEmpleados(){
-    this.apiConcesionario.consultarEmpleados().subscribe( (response:any) => {
+  consultarSucursales(){
+    this.apiConcesionario.consultarSucursales().subscribe( (response:any) => {
       if(response.error == "500"){
         Swal.fire({
           title: "Oops...",
           text: 'No existe',
           type:'info'
         })
-        this.empleados = []
+        this.sucursales = []
       }else{
-        this.empleados = response
+        this.sucursales = response
       }
-    });;
+    });
 
   }
 
@@ -62,14 +64,13 @@ export class AutoComponent implements OnInit {
       return;
     }
 
-    if(!this.auto.id){
-      this.apiConcesionario.insertarAuto(this.auto).subscribe( (response:any)=>{
-
-          console.log(response)        
+    if(!this.empleado.id){
+      this.apiConcesionario.insertarEmpleado(this.empleado).subscribe( (response:any)=>{
+       
           if(response.error == "200"){
             Swal.fire({
-              title: this.auto.marca + ' ' + this.auto.nombre,
-              text: 'Se inserto el auto correctamente',
+              title: this.empleado.nombre + ' ' + this.empleado.apellido,
+              text: 'Se inserto el empleado correctamente',
               type:'success'
             })
           }else{
@@ -82,11 +83,12 @@ export class AutoComponent implements OnInit {
       })
     }else{
 
-      this.apiConcesionario.actualizarAuto(this.auto).subscribe( (response:any)=>{
+      this.apiConcesionario.actualizarEmpleado(this.empleado).subscribe( (response:any)=>{
+
         if(response.error == "200"){
           Swal.fire({
-            title: this.auto.marca + ' ' + this.auto.nombre,
-            text: 'Se actualizo el auto de manera exitosa',
+            title: this.empleado.nombre + ' ' + this.empleado.apellido,
+            text: 'Se actualizo el empleado de manera exitosa',
             type:'success'
           })
         }else{
@@ -101,8 +103,5 @@ export class AutoComponent implements OnInit {
     } 
   }
 
-
-  
-  
 
 }

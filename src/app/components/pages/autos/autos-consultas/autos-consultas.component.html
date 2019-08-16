@@ -1,5 +1,5 @@
-<h4 class="display-4 m-4">Consultas de Autos</h4>
-<div class="row m-2">
+<h4 class="display-4 m-4 animated fadeIn fasted">Consultas de Autos</h4>
+<div class="row m-2 animated fadeIn slow">
     <div class="col-md-4 col-sm-12 border-right">
         <div class="form-group ">
             <label for="marca">Consultar por Marca</label>
@@ -19,9 +19,7 @@
             <label for="marca">Consultar por Empleado</label>
             <div class="d-flex">
             <select name="empleado" class="form-control" id="empleado" #select>
-                <option *ngFor="let empleado of empleados" [value]="empleado.id">{{empleado.nombre}} {{empleado.apellido}}</option>
-                <!-- <option *ngFor="let empleado of empleados" [value]="empleado.id" >{{empleado.first_name}} {{empleado.last_name}}</option> -->
-            
+                <option *ngFor="let empleado of empleados" [value]="empleado.id">{{empleado.nombre}} {{empleado.apellido}}</option>      
             </select>
             <button class="btn btn-rounded btn-info ml-2 mr-2" (click)="consultarEmpleado(select)" ><i class="fa fa-send"></i></button>
             </div>
@@ -48,7 +46,7 @@
                     <th scope="col">ID Empleado</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="animated fadeIn fasted">
                 <tr *ngFor="let auto of autos">
                     <th scope="row">{{auto.id}}</th>
                     <td>{{auto.nombre}}</td>
@@ -59,16 +57,6 @@
                     <td>{{auto.marca}}</td>
                     <td>{{auto.id_empleado}}</td>
                  </tr>
-                <!-- <tr *ngFor="let auto of autos">
-                    <th scope="row">{{auto.id}}</th>
-                    <td>{{auto.email}}</td>
-                    <td>{{auto.first_name}}</td>
-                    <td>{{auto.last_name}}</td>
-                    <td>{{auto.last_name}}</td>
-                    <td>{{auto.id | currency}}</td>
-                    <td>{{auto.last_name}}</td>
-                    <td>{{auto.last_name}}</td>
-                </tr>  -->
             </tbody>
         </table>
     </div>

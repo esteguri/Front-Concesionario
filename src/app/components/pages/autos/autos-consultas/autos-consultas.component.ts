@@ -34,25 +34,13 @@ export class AutosConsultasComponent implements OnInit {
           text: 'No existe',
           type:'info'
         })
-        this.autos = []        
+        this.autos = []
 
       }else{
         this.autos = response
       }
     });
 
-    // this.apiConcesionario.consultarAutoXMarca(input.value).subscribe( (response:any) => {
-    //   if(response.data.error == "500"){
-    //     Swal.fire({
-    //       title: "Oops...",
-    //       text: 'No existe',
-    //       type:'info'
-    //     })
-    //   }else{
-    //     this.autos = response.data
-    //   }
-    // });
-  
   }
 
   consultarFecha(input:any){
@@ -78,17 +66,6 @@ export class AutosConsultasComponent implements OnInit {
       }
     });  
 
-    // this.apiConcesionario.consultarAutoXFechaIngreso(input.value).subscribe( (response:any) => {
-    //   if(response.data.error == "500"){
-    //     Swal.fire({
-    //       title: "Oops...",
-    //       text: 'No existe',
-    //       type:'info'
-    //     })
-    //   }else{
-    //     this.autos = response.data
-    //   }
-    // });
   }
 
   consultarEmpleado(input:any){
@@ -113,18 +90,7 @@ export class AutosConsultasComponent implements OnInit {
         this.autos = response
       }
     });
-  
-    //  this.apiConcesionario.consultarAutoXEmpleado(input.value).subscribe( (response:any) => {
-    //   if(response.data.error == "500"){
-    //     Swal.fire({
-    //       title: "Oops...",
-    //       text: 'No existe',
-    //       type:'info'
-    //     })
-    //   }else{
-    //     this.autos = response.data
-    //   }
-    // });
+
   }
 
   consultarPrecio(input:any){
@@ -151,17 +117,6 @@ export class AutosConsultasComponent implements OnInit {
       }
     });
 
-    // this.apiConcesionario.consultarAutoXPrecio(input.value).subscribe( (response:any) => {
-    //   if(response.data.error == "500"){
-    //     Swal.fire({
-    //       title: "Oops...",
-    //       text: 'No existe',
-    //       type:'info'
-    //     })
-    //   }else{
-    //     this.autos = response.data
-    //   }
-    // });
   
   }
 
@@ -178,18 +133,6 @@ export class AutosConsultasComponent implements OnInit {
         this.empleados = response
       }
     });
-
-    //  this.apiConcesionario.consultarEmpleados().subscribe( (response:any) => {
-    //   if(response.data.error == "500"){
-    //     Swal.fire({
-    //       title: "Oops...",
-    //       text: 'No existe',
-    //       type:'info'
-    //     })
-    //   }else{
-    //     this.empleados = response.data
-    //   }
-    // });
 
 
   }

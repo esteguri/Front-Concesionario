@@ -1,0 +1,43 @@
+<div><div class="d-flex justify-content-center"><div class="m-2 mt-3 col-lg-5 col-md-12 animated fadeIn faster">
+    <h1>Sucursal <small>{{title}}</small></h1>
+    <hr>
+    <div class="row text-right animated fadeIn faster">
+        <div class="col">
+            <button class="btn btn-outline-danger" routerLink="/sucursales">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                Regresar
+            </button>
+        </div>
+    </div>
+    
+    <div class="row animated fadeIn faster">
+        <div class="col">
+            <form (ngSubmit)="guardar(f)" #f="ngForm">
+                <div class="form-group">
+                    <label>Sucursal ID</label>
+                    <input type="text" [(ngModel)]="sucursal.id" name="id" placeholder="Sucursal ID" class="form-control" disabled>
+                    <small class="form-text text-muted">Este campo es autogenerado</small>
+                </div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input required minlength="3" type="text" class="form-control" [(ngModel)]="sucursal.nombre" name="nombre" placeholder="Nombre de la sucursal">
+                </div>
+                <div class="form-group">
+                    <label>Descripcion</label>
+                    <input type="text" class="form-control" [(ngModel)]="sucursal.descripcion" name="descripcion" placeholder="Descripcion de la sucursal">
+                </div>
+                <hr>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-info w-25">
+                        <i class="fa fa-save"></i>
+                        Guardar
+                    </button>
+                </div>
+                
+            </form>
+    </div>
+    
+    
+</div>
+</div>
+</div>

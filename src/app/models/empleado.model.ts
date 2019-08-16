@@ -1,4 +1,4 @@
-export class empleado{
+export class EmpleadoModel{
     id:number;
     nombre:string;
     apellido:string;

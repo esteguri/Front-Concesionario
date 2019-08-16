@@ -2,14 +2,21 @@
 <h1>Gestion de Autos</h1>
 <hr>
 <div class="row p-2">
-    <div class="col-2 text-right">
+    <div class="col-lg-2 col-md-12 text-right">
         <h5><i class="fa fa-search"></i> Consultar ID</h5>
     </div>
-    <div class="col-3 d-flex">
+    <div class="col-lg-2 col-md-12 d-flex">
         <input type="number" class="form-control" min="1" required #id>
         <button class="btn btn-info btn-rounded ml-2" (click)="consultarId(id)"> <i class="fa fa-send"></i></button>
     </div>
-    <div class="col text-right">
+    <div class="col-lg-2 col-md-12 text-right ml-4">
+        <h5><i class="fa fa-search"></i> Consultar Placa</h5>
+    </div>
+    <div class="col-lg-3 col-md-12 d-flex">
+        <input type="text" minlength="6" maxlength="6" class="form-control" min="1" required #placa>
+        <button class="btn btn-info btn-rounded ml-2" (click)="consultarPlaca(placa)"> <i class="fa fa-send"></i></button>
+    </div>
+    <div class="col-lg col-md-12 pt-1 text-right">
         <button class="btn btn-info mr-2" (click)="consultarAutos()">
             <i class="fa fa-filter"></i>
             Listar
@@ -35,7 +42,7 @@
         </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let auto of autos">
+    <tr *ngFor="let auto of autos; let i = index">
             <th scope="row">{{auto.id}}</th>
             <td>{{auto.nombre}}</td>
             <td>{{auto.descripcion}}</td>
@@ -46,7 +53,7 @@
             <td>{{auto.id_empleado}}</td>
             <td>
             <button class="btn btn-warning mr-1" routerLink="/auto/{{auto.id}}"><i class="fa fa-pen"></i></button>
-            <button class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+            <button class="btn btn-danger" (click)="borrarAuto(auto, i)" ><i class="fa fa-trash"></i></button>
             </td>
         </tr>
         <!-- <tr *ngFor="let auto of autos">

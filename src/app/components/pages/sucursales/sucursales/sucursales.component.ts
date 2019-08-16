@@ -1,29 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiConcesionarioService } from '../../../../services/api-concesionario.service';
 import Swal from 'sweetalert2'
-import { AutoModel } from 'src/app/models/auto.model';
+import { SucursalModel } from '../../../../models/sucursal.model';
+
 @Component({
-  selector: 'app-autos',
-  templateUrl: './autos.component.html',
+  selector: 'app-sucursales',
+  templateUrl: './sucursales.component.html',
   styles: []
 })
-export class AutosComponent implements OnInit {
+export class SucursalesComponent implements OnInit {
 
   cargando = false;
-  autos:any[] = []
-
+  sucursales:any[] = []
+  
   constructor(private apiConcesionario:ApiConcesionarioService) { }
 
   ngOnInit() {
     this.cargando=true
     setTimeout(()=>{
-      this.consultarAutos();
+      this.consultarSucursales();
     },800)
   }
 
-  consultarAutos(){
+  consultarSucursales(){
 
-    this.apiConcesionario.consultarAutos().subscribe( (response:any) => {
+    this.apiConcesionario.consultarSucursales().subscribe( (response:any) => {
       if(response.error == "500"){
         this.cargando=false
         Swal.fire({
@@ -32,7 +33,7 @@ export class AutosComponent implements OnInit {
           type:'info'
         })
       }else{
-        this.autos = response
+        this.sucursales = response
         this.cargando=false
       }
     });
@@ -49,7 +50,7 @@ export class AutosComponent implements OnInit {
       return;
     }
 
-    this.apiConcesionario.consultarAutoXId(input.value).subscribe( (response:any) => {
+    this.apiConcesionario.consultarSucursalXId(input.value).subscribe( (response:any) => {
       if(response.error == "500"){
         Swal.fire({
           title: "Oops...",
@@ -59,15 +60,14 @@ export class AutosComponent implements OnInit {
       }else{
         var resp = []
         resp.push(response)
-        this.autos = resp
+        this.sucursales = resp
       }
     });
-    
 
   }
 
-  consultarPlaca(input:any){
-    if(input.value == "" || input.value.length != 6){
+  consultarNombre(input:any){
+    if(input.value == "" || input.value.length < 3 ){
       Swal.fire({
         title: "Oops...",
         text: 'Verifique que el campo sea correcto',
@@ -76,7 +76,7 @@ export class AutosComponent implements OnInit {
       return;
     }
 
-    this.apiConcesionario.consultarAutoXPlaca(input.value).subscribe( (response:any) => {
+    this.apiConcesionario.consultarSucursalXNombre(input.value).subscribe( (response:any) => {
       if(response.error == "500"){
         Swal.fire({
           title: "Oops...",
@@ -84,42 +84,37 @@ export class AutosComponent implements OnInit {
           type:'info'
         })
       }else{
-        var resp = []
-        resp.push(response)
-        this.autos = resp
+        this.sucursales = response
       }
     });
 
-  }  
+  }
 
-  borrarAuto(auto:AutoModel, i:number){
+  borrarSucursal(sucursal:SucursalModel, i:number){
 
     Swal.fire({
       title:"¿Esta Seguro?",
-      text: "Esta seguro que desea eliminar el auto " + auto.marca + " " + auto.nombre,
+      text: "Esta seguro que desea eliminar la sucursal " + sucursal.nombre,
       type: 'question',
       showConfirmButton:true,
       showCancelButton:true
     }).then(resp => {
       if(resp.value){
-        this.autos.splice(i,1)
-        this.apiConcesionario.borrarAuto(auto.id).subscribe((response:any)=>{
+        
+        this.apiConcesionario.borrarSucursal(sucursal.id).subscribe((response:any)=>{
           if(response.error == "500"){
             Swal.fire({
               title: "Oops...",
-              text: 'Error al eliminar el Auto, verifique las dependencias',
+              text: 'Error al eliminar la Sucursal, verifique las dependencias',
               type:'error'
             })
           }else{
-            this.autos.splice(i,1)
+            this.sucursales.splice(i,1)
           }
         });
       }
     })
 
-    
   }
-
-  
 
 }

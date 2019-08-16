@@ -1,54 +1,35 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiConcesionarioService } from '../../../../services/api-concesionario.service';
-import { AutoModel } from '../../../../models/auto.model';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2'
 import { ActivatedRoute, Router } from '@angular/router';
+import { SucursalModel } from 'src/app/models/sucursal.model';
 
 @Component({
-  selector: 'app-auto',
-  templateUrl: './auto.component.html',
-  styles: []
+  selector: 'app-sucursal',
+  templateUrl: './sucursal.component.html'
 })
-export class AutoComponent implements OnInit {
+export class SucursalComponent implements OnInit {
 
-  auto = new AutoModel();
+  sucursal = new SucursalModel();
   title:string;
-  empleados:any[] = []
   constructor(private apiConcesionario:ApiConcesionarioService, private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit() {
-    this.consultarEmpleados();
     const id = this.route.snapshot.paramMap.get('id');
     if(id=="nuevo"){
       this.title = "Nuevo"
     }else{
 
-      this.apiConcesionario.consultarAutoXId(id).subscribe( (resp:any) => {
+      this.apiConcesionario.consultarSucursalXId(id).subscribe( (resp:any) => {
         if(resp.error){
-          this.router.navigate(['/autos'])
+          this.router.navigate(['/sucursales'])
         }else{
-          this.auto = resp;
+          this.sucursal = resp;
           this.title = resp.nombre;
         }
       })
-
     }
-  }
-
-  consultarEmpleados(){
-    this.apiConcesionario.consultarEmpleados().subscribe( (response:any) => {
-      if(response.error == "500"){
-        Swal.fire({
-          title: "Oops...",
-          text: 'No existe',
-          type:'info'
-        })
-        this.empleados = []
-      }else{
-        this.empleados = response
-      }
-    });;
 
   }
 
@@ -62,14 +43,13 @@ export class AutoComponent implements OnInit {
       return;
     }
 
-    if(!this.auto.id){
-      this.apiConcesionario.insertarAuto(this.auto).subscribe( (response:any)=>{
-
-          console.log(response)        
+    if(!this.sucursal.id){
+      this.apiConcesionario.insertarSucursal(this.sucursal).subscribe( (response:any)=>{
+       
           if(response.error == "200"){
             Swal.fire({
-              title: this.auto.marca + ' ' + this.auto.nombre,
-              text: 'Se inserto el auto correctamente',
+              title: this.sucursal.nombre,
+              text: 'Se inserto la sucursal correctamente',
               type:'success'
             })
           }else{
@@ -82,11 +62,12 @@ export class AutoComponent implements OnInit {
       })
     }else{
 
-      this.apiConcesionario.actualizarAuto(this.auto).subscribe( (response:any)=>{
+      this.apiConcesionario.actualizarSucursal(this.sucursal).subscribe( (response:any)=>{
+
         if(response.error == "200"){
           Swal.fire({
-            title: this.auto.marca + ' ' + this.auto.nombre,
-            text: 'Se actualizo el auto de manera exitosa',
+            title: this.sucursal.nombre,
+            text: 'Se actualizo la sucursal de manera exitosa',
             type:'success'
           })
         }else{
@@ -101,8 +82,5 @@ export class AutoComponent implements OnInit {
     } 
   }
 
-
-  
-  
 
 }

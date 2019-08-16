@@ -1,17 +1,12 @@
-<div class="container text-center">
+<div class="container text-center animated fadeIn fasted">
     <h1 class="display-2 mt-3">Administración del Concesionario</h1>
     <div class="row mt-5">
         <div class="col">
-            <button class="btn btn-danger btn-lg" data-toggle="modal" data-target=".modal-autos-xl" [routerLink]="['/autos-consultas']"><i class="fa fa-search"></i> Consultas de Autos</button>
+            <button class="btn btn-danger btn-lg p-4" [routerLink]="['/autos-consultas']" style="font-size: 25px"><i class="fa fa-search"></i> Consultas de Autos</button>
         </div>
         
         <div class="col">
-            <button class="btn btn-danger btn-lg"><i class="fa fa-search"></i> Consultas de Sucursales</button>
-        </div>
-    
-        
-        <div class="col">
-            <button class="btn btn-danger btn-lg"><i class="fa fa-search"></i> Consultas de Empleados</button>
+            <button class="btn btn-danger btn-lg p-4" [routerLink]="['/empleados-consultas']" style="font-size: 25px"><i class="fa fa-search"></i> Consultas de Empleados</button>
         </div>
     </div>
 </div>

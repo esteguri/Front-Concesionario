@@ -1,4 +1,4 @@
-<div><div class="d-flex justify-content-center"><div class="m-2 mt-3 col-5">
+<div><div class="d-flex justify-content-center"><div class="m-2 mt-3 col-lg-5 col-md-12 animated fadeIn faster">
     <h1>Auto <small>{{title}}</small></h1>
     <hr>
     <div class="row text-right animated fadeIn faster">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <label>Precio</label>
-                    <input required type="number" class="form-control" [(ngModel)]="auto.precio" name="precio" placeholder="Precio del Auto">
+                    <input required type="number" class="form-control" maxlength="10" [(ngModel)]="auto.precio" name="precio" placeholder="Precio del Auto">
                 </div>
                 <div class="form-group">
                     <label>Placa</label>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label>Empleado que registra</label>
-                    <select name="empleado" class="form-control" id="empleado" #select [(ngModel)]="auto.id_empleado">
+                    <select name="empleado" required class="form-control" id="empleado" #select [(ngModel)]="auto.id_empleado">
                         <option *ngFor="let empleado of empleados" [value]="empleado.id">{{empleado.nombre}} {{empleado.apellido}}</option>
                         <!-- <option *ngFor="let empleado of empleados" [value]="empleado.id" >{{empleado.first_name}} {{empleado.last_name}}</option> -->
                             
@@ -65,7 +65,3 @@
 </div>
 </div>
 </div>
-<div class="row">
-    {{auto | json}}
-</div>
-
