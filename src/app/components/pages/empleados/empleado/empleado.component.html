@@ -26,9 +26,13 @@
                     <label>Apellido</label>
                     <input type="text" class="form-control" [(ngModel)]="empleado.apellido" name="apellido" placeholder="Apellido del empleado">
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="title == 'Nuevo'" >
                     <label>Cedula</label>
-                    <input required type="number" class="form-control" maxlength="10" [(ngModel)]="empleado.cedula" name="cedula" placeholder="Cedula del empleado">
+                    <input required type="number" class="form-control" minlength="6" maxlength="10" [(ngModel)]="empleado.cedula" name="cedula" placeholder="Cedula del empleado">
+                </div>
+                <div class="form-group" *ngIf="title != 'Nuevo'">
+                    <label>Cedula</label>
+                    <input required disabled type="number" class="form-control" minlength="6" maxlength="10" [(ngModel)]="empleado.cedula" name="cedula" placeholder="Cedula del empleado">
                 </div>
                 <div class="form-group">
                     <label>Fecha de Ingreso</label>

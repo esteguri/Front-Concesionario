@@ -62,24 +62,45 @@ export class AutoComponent implements OnInit {
       return;
     }
 
-    if(!this.auto.id){
-      this.apiConcesionario.insertarAuto(this.auto).subscribe( (response:any)=>{
-
-          console.log(response)        
-          if(response.error == "200"){
-            Swal.fire({
-              title: this.auto.marca + ' ' + this.auto.nombre,
-              text: 'Se inserto el auto correctamente',
-              type:'success'
-            })
-          }else{
-            Swal.fire({
-              title: "Oops...",
-              text: 'Ocurrio un error al insertar',
-              type:'error'
-            })
-          }
+    if(this.auto.precio.toString().length > 10){
+      Swal.fire({
+        title: "Oops...",
+        text: 'Verifique el precio, debe ser un valor valido de un auto',
+        type:'error'
       })
+      return;
+    }  
+
+    if(!this.auto.id){
+
+      this.apiConcesionario.consultarAutoXPlaca(this.auto.placa).subscribe( (response:any)=>{
+        console.log(response)
+        if(response.error == "500"){
+            this.apiConcesionario.insertarAuto(this.auto).subscribe( (response:any)=>{
+              if(response.error == "200"){
+                Swal.fire({
+                  title: this.auto.marca + ' ' + this.auto.nombre,
+                  text: 'Se inserto el auto correctamente',
+                  type:'success'
+                })
+              }else{
+                Swal.fire({
+                  title: "Oops...",
+                  text: 'Ocurrio un error al insertar, verifique que la placa no exista',
+                  type:'error'
+                })
+              }
+          })
+        }else{
+          Swal.fire({
+            title: "Oops...",
+            text: 'La placa ya existe',
+            type:'error'
+          })
+        }
+      })
+
+      
     }else{
 
       this.apiConcesionario.actualizarAuto(this.auto).subscribe( (response:any)=>{
@@ -92,7 +113,7 @@ export class AutoComponent implements OnInit {
         }else{
           Swal.fire({
             title: "Oops...",
-            text: 'Ocurrio un error al actualizar',
+            text: 'Ocurrio un error al actualizar, verifique que el precio sea valido o la placa no exista',
             type:'error'
           })
         }

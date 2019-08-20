@@ -64,22 +64,41 @@ export class EmpleadoComponent implements OnInit {
       return;
     }
 
+    if(this.empleado.cedula.toString().length < 5 || this.empleado.cedula.toString().length > 10){
+      Swal.fire({
+        title: "Oops...",
+        text: 'Verifique la cedula, debe ser valida',
+        type:'error'
+      })
+      return;
+    }
+
     if(!this.empleado.id){
-      this.apiConcesionario.insertarEmpleado(this.empleado).subscribe( (response:any)=>{
-       
-          if(response.error == "200"){
-            Swal.fire({
-              title: this.empleado.nombre + ' ' + this.empleado.apellido,
-              text: 'Se inserto el empleado correctamente',
-              type:'success'
-            })
-          }else{
-            Swal.fire({
-              title: "Oops...",
-              text: 'Ocurrio un error al insertar',
-              type:'error'
-            })
-          }
+      this.apiConcesionario.consultarEmpleadoXCedula(this.empleado.cedula).subscribe( (response:any)=>{
+        if(response.error == "500"){
+          this.apiConcesionario.insertarEmpleado(this.empleado).subscribe( (response:any)=>{
+           
+              if(response.error == "200"){
+                Swal.fire({
+                  title: this.empleado.nombre + ' ' + this.empleado.apellido,
+                  text: 'Se inserto el empleado correctamente',
+                  type:'success'
+                })
+              }else{
+                Swal.fire({
+                  title: "Oops...",
+                  text: 'Ocurrio un error al insertar',
+                  type:'error'
+                })
+              }
+          })
+        } else{
+          Swal.fire({
+            title: "Oops...",
+            text: 'La cedula ya existe',
+            type:'error'
+          })
+        } 
       })
     }else{
 

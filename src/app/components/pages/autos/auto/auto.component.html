@@ -30,9 +30,13 @@
                     <label>Precio</label>
                     <input required type="number" class="form-control" maxlength="10" [(ngModel)]="auto.precio" name="precio" placeholder="Precio del Auto">
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="title == 'Nuevo' ">
                     <label>Placa</label>
                     <input required type="text" class="form-control" [(ngModel)]="auto.placa" minlength="6" maxlength="6"  name="placa" placeholder="Placa del Vehiculo">
+                </div>
+                <div class="form-group" *ngIf="title != 'Nuevo' ">
+                    <label>Placa</label>
+                    <input required type="text" class="form-control" [(ngModel)]="auto.placa" minlength="6" maxlength="6"  name="placa" placeholder="Placa del Vehiculo" disabled>
                 </div>
                 <div class="form-group">
                     <label>Fecha de Ingreso</label>
@@ -45,9 +49,7 @@
                 <div class="form-group">
                     <label>Empleado que registra</label>
                     <select name="empleado" required class="form-control" id="empleado" #select [(ngModel)]="auto.id_empleado">
-                        <option *ngFor="let empleado of empleados" [value]="empleado.id">{{empleado.nombre}} {{empleado.apellido}}</option>
-                        <!-- <option *ngFor="let empleado of empleados" [value]="empleado.id" >{{empleado.first_name}} {{empleado.last_name}}</option> -->
-                            
+                        <option *ngFor="let empleado of empleados" [value]="empleado.id">{{empleado.nombre}} {{empleado.apellido}}</option>                            
                     </select>
                 </div>
                 <hr>
